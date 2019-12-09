@@ -32,9 +32,13 @@ async function run() {
     )} topology`
   );
 
+  client.on('serverHeartbeatStarted', event =>
+    print(`${chalk.blue('heartbeat')} ${chalk.magenta('started')} host: '${event.connectionId}`)
+  );
+
   client.on('serverHeartbeatSucceeded', event =>
     print(
-      `${chalk.yellow('heartbeat')} ${chalk.green('succeeded')} host: '${
+      `${chalk.blue('heartbeat')} ${chalk.green('succeeded')} host: '${
         event.connectionId
       }' ${chalk.gray(`(${event.duration} ms)`)}`
     )
@@ -42,9 +46,9 @@ async function run() {
 
   client.on('serverHeartbeatFailed', event =>
     print(
-      `${chalk.yellow('heartbeat')} ${chalk.red('failed')} host: '${
-        event.connectionId
-      }' ${chalk.gray(`(${event.duration} ms)`)}`
+      `${chalk.blue('heartbeat')} ${chalk.red('failed')} host: '${event.connectionId}' ${chalk.gray(
+        `(${event.duration} ms)`
+      )}`
     )
   );
 
