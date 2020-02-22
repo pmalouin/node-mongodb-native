@@ -53,12 +53,13 @@ function filterOutTests(suite) {
 }
 
 before(function(_done) {
-  const usingUnifiedTopology = !!process.env.MONGODB_UNIFIED_TOPOLOGY;
-  console.log(
-    `connecting to: ${chalk.bold(MONGODB_URI)} using ${chalk.bold(
-      usingUnifiedTopology ? 'unified' : 'legacy'
-    )} topology`
-  );
+  // NOTE: if we first parse the connection string and redact auth, then we can reenable this
+  // const usingUnifiedTopology = !!process.env.MONGODB_UNIFIED_TOPOLOGY;
+  // console.log(
+  //   `connecting to: ${chalk.bold(MONGODB_URI)} using ${chalk.bold(
+  //     usingUnifiedTopology ? 'unified' : 'legacy'
+  //   )} topology`
+  // );
 
   const client = new MongoClient(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
   const done = err => client.close(err2 => _done(err || err2));
