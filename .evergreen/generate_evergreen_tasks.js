@@ -7,12 +7,7 @@ const yaml = require('js-yaml');
 const LATEST_EFFECTIVE_VERSION = '5.0';
 const MONGODB_VERSIONS = ['latest', '4.2', '4.0', '3.6', '3.4', '3.2', '3.0', '2.6'];
 const NODE_VERSIONS = ['dubnium', 'carbon', 'boron', 'argon'];
-const TOPOLOGIES = ['server', 'replica_set', 'sharded_cluster'].concat([
-  'server-unified',
-  'replica_set-unified',
-  'sharded_cluster-unified'
-]);
-
+const TOPOLOGIES = ['server', 'replica_set', 'sharded_cluster'];
 const OPERATING_SYSTEMS = [
   // Debian
   {
@@ -143,10 +138,6 @@ const TASKS = [];
 function makeTask({ mongoVersion, topology }) {
   let topologyForTest = topology;
   let runTestsCommand = { func: 'run tests' };
-  if (topology.indexOf('-unified') !== -1) {
-    topologyForTest = topology.split('-unified')[0];
-    runTestsCommand = { func: 'run tests', vars: { UNIFIED: 1 } };
-  }
 
   return {
     name: `test-${mongoVersion}-${topology}`,
